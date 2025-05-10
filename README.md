@@ -3,9 +3,11 @@
 A customizable Discord bot that sends daily quest reminders directly to users through DMs. Users can set their preferred reminder time and receive notifications with embedded links to complete their daily quests. [Add this application](https://discord.com/oauth2/authorize?client_id=1370652979497271347)
 
 Sample `/setreminder` command
+
 <img src="./sample1.png">
 
 Sample alert sent to your dm
+
 <img src="./sample2.png">
 
 ## Quest Links
