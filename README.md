@@ -19,7 +19,7 @@ The bot reminds users about the following daily quests:
 
 ## Commands
 
-- `/setreminder [time] [timezone]` - Set your reminder time with optional timezone
+- `/setreminder [time] [timezone]` - Set your reminder time with timezone
   - Example: `/setreminder 14:00 Asia/Manila` (sets reminder for 2 PM in Manila timezone)
   - Example: `/setreminder 08:30 US/Eastern` (sets reminder for 8:30 AM in Eastern US timezone)
 
@@ -27,7 +27,7 @@ The bot reminds users about the following daily quests:
 
 - `/stopreminder` - Stop receiving daily reminders
 
-- `/listtimezones` - View a list of common timezones organized by region
+- `/listtimezones` - View a list of common timezones organized by region and get a link to all supported timezones
 
 ## Timezone Support
 
