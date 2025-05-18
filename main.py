@@ -291,12 +291,15 @@ async def check_reminder(interaction: discord.Interaction):
                 tz = pytz.timezone(tz)
 
         now = datetime.now(tz)
-        current_time = now.strftime('%H:%M')
-
         logger.info(f"User {interaction.user.name} ({user_id}) checked reminder settings")
 
-        message = f"📅 Your daily quest reminder is set for {reminder_time} ({timezone_display})\n" \
-                  f"Current time in your timezone: {current_time} (24hr format)"
+        hour, minute = map(int, reminder_time.split(':'))
+        reminder_datetime = datetime.now(tz).replace(hour=hour, minute=minute, second=0, microsecond=0)
+        reminder_epoch = int(reminder_datetime.timestamp())
+        current_epoch = int(now.timestamp())
+
+        message = f"🕒 Your daily quest reminder is set for <t:{reminder_epoch}:t> ({timezone_display})\n" \
+                  f"Current time in your timezone: <t:{current_epoch}:t>"
 
         await interaction.response.send_message(message, ephemeral=True)
     else:
@@ -331,7 +334,7 @@ async def send_reminder(user_id):
         discord_name = user_data[user_id].get('discord_name', f"User {user_id}")
 
         embed = discord.Embed(
-            title="🎮 Daily Quest Reminders!",
+            title="🍬 Daily Quest Reminders!",
             description="Don't forget to complete your daily quests!",
             color=discord.Color.blue()
         )
@@ -339,7 +342,7 @@ async def send_reminder(user_id):
         embed.set_thumbnail(url=THUMBNAIL_URL)
 
         for quest_name, quest_link in QUESTS.items():
-            emoji = "🎁" if "General" in quest_name else "🍫" if "Collectors" in quest_name else "🏝️"
+            emoji = "✨" if "General" in quest_name else "🎖️" if "Collectors" in quest_name else "🏝️"
             embed.add_field(
                 name=f"{emoji} {quest_name}",
                 value=f"[Click here to go to quest]({quest_link})",
