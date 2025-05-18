@@ -174,9 +174,9 @@ async def set_reminder(
             user_timezone = normalize_timezone(timezone)
             tz = pytz.timezone(user_timezone) if isinstance(user_timezone, str) else user_timezone
         except pytz.exceptions.UnknownTimeZoneError:
-            raise ValueError(f"Unknown timezone: {timezone}. Please use a valid timezone format like 'US/Pacific', 'UTC+8', or 'GMT-5'.")
+            raise ValueError(f"Unknown timezone: `{timezone}`. Please use a valid timezone format like `US/Pacific`, `UTC+8`, or `GMT-5`.")
         except Exception as err:
-            raise ValueError(f"Invalid timezone: {timezone}. Error: {str(err)}")
+            raise ValueError(f"Invalid timezone: `{timezone}`. Error: {str(err)}")
 
         user_data = load_user_data()
         user_id = str(interaction.user.id)
