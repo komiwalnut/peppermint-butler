@@ -218,27 +218,18 @@ async def set_reminder(
         try:
             await interaction.user.send("✅ Your reminder has been set successfully! You'll receive daily quest reminders in your DMs.")
 
-            now = datetime.now(tz)
-            time_str = now.strftime('%H:%M')
+            reminder_datetime = datetime.now(tz).replace(hour=hour, minute=minute, second=0, microsecond=0)
+            reminder_epoch = int(reminder_datetime.timestamp())
+            current_epoch = int(datetime.now(tz).timestamp())
 
             logger.info(f"User {interaction.user.name} ({user_id}) set reminder for {set_time} {timezone}")
             await interaction.response.send_message(
-                f"✅ Your daily quest reminder has been set for {set_time} in your timezone ({timezone})!\n"
-                f"Current time in your timezone: {time_str} (24hr format)",
-                ephemeral=True
-            )
-        except discord.Forbidden:
-            logger.warning(f"User {interaction.user.name} ({user_id}) has DMs blocked")
-            await interaction.response.send_message(
-                f"✅ Your daily quest reminder has been set for {set_time} in your timezone ({timezone})!",
+                f"✅ Your daily quest reminder has been set for <t:{reminder_epoch}:t> in your timezone ({timezone})!\n"
+                f"Current time in your timezone: <t:{current_epoch}:t>",
                 ephemeral=True
             )
         except Exception as err:
             logger.error(f"Error sending confirmation to {interaction.user.name}: {str(err)}")
-            await interaction.response.send_message(
-                f"✅ Your daily quest reminder has been set for {set_time} in your timezone ({timezone})!",
-                ephemeral=True
-            )
 
     except ValueError as err:
         logger.error(f"Error in set_reminder for {interaction.user.name}: {str(err)}")
