@@ -174,9 +174,9 @@ async def set_reminder(
             user_timezone = normalize_timezone(timezone)
             tz = pytz.timezone(user_timezone) if isinstance(user_timezone, str) else user_timezone
         except pytz.exceptions.UnknownTimeZoneError:
-            raise ValueError(f"Unknown timezone: {timezone}. Please use a valid timezone format like 'US/Pacific', 'UTC+8', or 'GMT-5'.")
+            raise ValueError(f"❌ Unknown timezone: {timezone}. Please use a valid timezone format like 'US/Pacific', 'UTC+8', or 'GMT-5'.")
         except Exception as err:
-            raise ValueError(f"Invalid timezone: {timezone}. Error: {str(err)}")
+            raise ValueError(f"❌ Invalid timezone: {timezone}. Error: {str(err)}")
 
         user_data = load_user_data()
         user_id = str(interaction.user.id)
@@ -233,14 +233,10 @@ async def set_reminder(
 
     except ValueError as err:
         logger.error(f"Error in set_reminder for {interaction.user.name}: {str(err)}")
-        await interaction.response.send_message(
-            f"❌ Error setting reminder: {str(err)}. Please use the format HH:MM (24-hour format) and a valid timezone.",
-            ephemeral=True
-        )
     except Exception as err:
         logger.error(f"Unexpected error in set_reminder for {interaction.user.name}: {str(err)}")
         await interaction.response.send_message(
-            f"❌ An unexpected error occurred: {str(err)}. Please try again later.",
+            f"❌ An unexpected error occurred: {str(err)} Please try again later.",
             ephemeral=True
         )
 
@@ -333,7 +329,7 @@ async def send_reminder(user_id):
         embed.set_thumbnail(url=THUMBNAIL_URL)
 
         for quest_name, quest_link in QUESTS.items():
-            emoji = "✨" if "General" in quest_name else "🎖️" if "Collectors" in quest_name else "🏝️"
+            emoji = "🎁" if "General" in quest_name else "🍫" if "Collectors" in quest_name else "🏝️"
             embed.add_field(
                 name=f"{emoji} {quest_name}",
                 value=f"[Click here to go to quest]({quest_link})",
