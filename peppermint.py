@@ -234,13 +234,13 @@ async def set_reminder(
     except ValueError as err:
         logger.error(f"Error in set_reminder for {interaction.user.name}: {str(err)}")
         await interaction.response.send_message(
-            f"❌ Error setting reminder: {str(err)} Please use the format HH:MM (24-hour format) and a valid timezone.",
+            f"❌ {str(err)}\n Please use the format `HH:MM` (24-hour format) and a valid timezone.",
             ephemeral=True
         )
     except Exception as err:
         logger.error(f"Unexpected error in set_reminder for {interaction.user.name}: {str(err)}")
         await interaction.response.send_message(
-            f"❌ An unexpected error occurred: {str(err)} Please try again later.",
+            f"❌ An unexpected error occurred: {str(err)}. Please try again later.",
             ephemeral=True
         )
 
